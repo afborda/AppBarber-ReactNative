@@ -9,12 +9,15 @@ import {
   SeeProfileButtonText,
 } from './styled';
 
+import Stars from '../Stars';
+
 export default ({ data }) => {
   return (
     <Area>
       <Avatar source={{ uri: data.avatar }} />
       <InfoArea>
         <UserName>{data.name}</UserName>
+        <Stars stars={data.stars} showNumber={true} />
         <SeeProfileButton>
           <SeeProfileButtonText> Ver Perfil</SeeProfileButtonText>
         </SeeProfileButton>

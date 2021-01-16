@@ -9,7 +9,7 @@ export default {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({token}),
+      body: JSON.stringify({ token }),
     });
     return await req.json();
   },
@@ -20,7 +20,7 @@ export default {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, password}),
+      body: JSON.stringify({ email, password }),
     });
     return await req.json();
   },
@@ -31,13 +31,39 @@ export default {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name, email, password}),
+      body: JSON.stringify({ name, email, password }),
     });
     return await req.json();
   },
-  getBarber: async () => {
+  logout: async () => {
     const token = await AsyncStorage.getItem('token');
-    const req = await fetch(`${BASE_API}/barbers?token=${token}`);
+
+    const req = await fetch(`${BASE_API}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+    return await req.json();
+  },
+  getBarbers: async (lat = null, lng = null, address = null) => {
+    console.log('lat', lat);
+    console.log('lng', lng);
+    console.log('Address', address);
+
+    const token = await AsyncStorage.getItem('token');
+    const req = await fetch(
+      `${BASE_API}/barbers?token=${token}&lat=${lat}&lng=${lng}&address=${address}`,
+    );
+    return await req.json();
+  },
+  getBarber: async (id) => {
+    const token = await AsyncStorage.getItem('token');
+
+    const req = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
+
     return await req.json();
   },
 };

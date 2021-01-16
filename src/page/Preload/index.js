@@ -1,15 +1,15 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import {Container, LoadingIcon} from './styles';
+import { Container, LoadingIcon } from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Api from '../../service/Api';
 
 import BarberLogo from '../../assets/barber.svg';
-import {UserContext} from '../../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
 
 export default () => {
-  const {dispatch: userDispatch} = useContext(UserContext);
+  const { dispatch: userDispatch } = useContext(UserContext);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default () => {
             },
           });
           navigation.reset({
-            routes: [{name: 'MainTab'}],
+            routes: [{ name: 'MainTab' }],
           });
         } else {
           navigation.navigate('SignIn');

@@ -35,15 +35,20 @@ export default () => {
       setLoading(true);
       setList([]);
 
-      const res = await Api.getBarber();
+      let lat = null;
+      let lng = null;
+
+      if (coords) {
+        lat = coords.latitude;
+        lng = coords.longitude;
+      }
+
+      const res = await Api.getBarbers(lat, lng, locationText);
 
       if (res) {
         setList(res.data);
         setLocationText(res.loc);
       }
-
-      console.log(res);
-
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -79,6 +84,11 @@ export default () => {
     getBarBers();
   };
 
+  const handleLocationSearch = () => {
+    setCoords({});
+    getBarBers();
+  };
+
   return (
     <Container>
       <Scroller
@@ -99,6 +109,7 @@ export default () => {
             placeholderTextColor="#FFF"
             value={locationText}
             onChangeText={(t) => setLocationText(t)}
+            onEndEditing={handleLocationSearch}
           />
           <LocationFinder onPress={handleLocationFinder}>
             <MyLocationIcon width="24" height="24" fill="#fff" />

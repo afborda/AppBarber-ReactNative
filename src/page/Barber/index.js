@@ -3,7 +3,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 
 import Api from '../../service/Api';
-
+import Stars from '../../components/Stars';
+import FavoriteIcon from '../../assets/favorite.svg';
+import BackIcon from '../../assets/back.svg';
 import {
   Container,
   Scroller,
@@ -16,6 +18,11 @@ import {
   SwipeDotActive,
   SwipeItem,
   SwipeImage,
+  UserAvatar,
+  UserInfoName,
+  UserFavButton,
+  UserInfo,
+  BackButton,
 } from './styled';
 
 export default () => {
@@ -37,8 +44,6 @@ export default () => {
 
       const response = await Api.getBarber(userInfo.id);
 
-      console.log(response.data);
-
       if (response.error === '') {
         setUserInfo(response.data);
       } else {
@@ -47,7 +52,12 @@ export default () => {
       setLoading(false);
     };
     getBarberInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleBackButton = () => {
+    navigation.goBack();
+  };
 
   return (
     <Container>
@@ -74,11 +84,23 @@ export default () => {
           <FakeSwiper />
         )}
         <PageBody>
-          <UserInfoArea />
+          <UserInfoArea>
+            <UserAvatar source={{ uri: userInfo.avatar }} />
+            <UserInfo>
+              <UserInfoName>{userInfo.name}</UserInfoName>
+              <Stars stars={userInfo.stars} showNumber={true} />
+            </UserInfo>
+            <UserFavButton>
+              <FavoriteIcon width="24" height="24" fill="#ff0000" />
+            </UserFavButton>
+          </UserInfoArea>
           <ServiceArea />
           <TestimonialArea />
         </PageBody>
       </Scroller>
+      <BackButton onPress={handleBackButton}>
+        <BackIcon width="44" height="44" fill="#fff" />
+      </BackButton>
     </Container>
   );
 };

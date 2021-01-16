@@ -38,26 +38,60 @@ export const SwipeImage = styled.Image`
 `;
 
 export const FakeSwiper = styled.View`
-  height: 30px;
-  background-color: aliceblue;
+  height: 240px;
+  background-color: #63c2d1;
 `;
 
 export const PageBody = styled.View`
-  height: 30px;
-  background-color: aqua;
+  background-color: #fff;
+  border-top-left-radius: 50px;
+  margin-top: -50px;
+  min-height: 400px;
 `;
 
 export const UserInfoArea = styled.View`
-  height: 30px;
-  background-color: aquamarine;
+  flex-direction: row;
+  margin-top: -30px;
 `;
 
-export const ServiceArea = styled.View`
-  height: 30px;
-  background-color: antiquewhite;
+export const ServiceArea = styled.View``;
+
+export const TestimonialArea = styled.View``;
+
+export const UserAvatar = styled.Image`
+  width: 110px;
+  height: 110px;
+  border-radius: 20px;
+  margin-left: 30px;
+  margin-right: 20px;
+  border-width: 4px;
+  border-color: #fff;
+`;
+export const UserInfoName = styled.Text`
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
 `;
 
-export const TestimonialArea = styled.View`
-  height: 30px;
-  background-color: blueviolet;
+export const UserFavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid #9999;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px 0 20px;
+`;
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+`;
+
+export const UserInfo = styled.View`
+  flex: 1;
+  justify-content: flex-end;
 `;

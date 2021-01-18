@@ -6,6 +6,9 @@ import Api from '../../service/Api';
 import Stars from '../../components/Stars';
 import FavoriteIcon from '../../assets/favorite.svg';
 import BackIcon from '../../assets/back.svg';
+import NavPrevIcon from '../../assets/nav_prev.svg';
+import NavNextIcon from '../../assets/nav_next.svg';
+
 import {
   Container,
   Scroller,
@@ -23,6 +26,14 @@ import {
   UserFavButton,
   UserInfo,
   BackButton,
+  LoadingIcon,
+  ServiceTitle,
+  ServiceItem,
+  ServiceInfo,
+  ServiceName,
+  ServicePrice,
+  ServiceChooseButton,
+  ServiceChooseBtnText,
 } from './styled';
 
 export default () => {
@@ -94,8 +105,45 @@ export default () => {
               <FavoriteIcon width="24" height="24" fill="#ff0000" />
             </UserFavButton>
           </UserInfoArea>
-          <ServiceArea />
-          <TestimonialArea />
+
+          {loading && <LoadingIcon size="large" color="#000" />}
+
+          {userInfo.services && (
+            <ServiceArea>
+              <ServiceTitle>Lista de Serviços</ServiceTitle>
+              {userInfo.services.map((item, key) => (
+                <ServiceItem key={key}>
+                  <ServiceInfo>
+                    <ServiceName>{item.name}</ServiceName>
+                    <ServicePrice>R$ {item.price}</ServicePrice>
+                  </ServiceInfo>
+                  <ServiceChooseButton>
+                    <ServiceChooseBtnText>Agendar</ServiceChooseBtnText>
+                  </ServiceChooseButton>
+                </ServiceItem>
+              ))}
+            </ServiceArea>
+          )}
+          {userInfo.testimonials && userInfo.testimonials.length > 0 && (
+            <TestimonialArea>
+              <Swiper
+                style={{ height: 110 }}
+                showsPagination={false}
+                showsButtons={true}
+                prevButton={<NavPrevIcon width="35" height="35" fill="#000" />}
+                nextButton={<NavNextIcon width="35" height="35" fill="#000" />}>
+                {userInfo.testimonials.map((item, key) => (
+                  <TestimonialItem key={key}>
+                    <TestimonialInfo>
+                      <TestimonialName>{item.name}</TestimonialName>
+                      <Stars stars={item.rate} showNumber={false} />
+                    </TestimonialInfo>
+                    <TestimonialBody>{item.body}</TestimonialBody>
+                  </TestimonialItem>
+                ))}
+              </Swiper>
+            </TestimonialArea>
+          )}
         </PageBody>
       </Scroller>
       <BackButton onPress={handleBackButton}>

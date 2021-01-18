@@ -22,6 +22,7 @@ export default {
       },
       body: JSON.stringify({ email, password }),
     });
+
     return await req.json();
   },
   signUp: async (name, email, password) => {
